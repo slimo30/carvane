@@ -38,7 +38,19 @@ services:
       - poli_db_data:/var/lib/postgresql/data
     networks:
       - carvane-network
-
+  restaurant_dashboard:
+    build:
+      context: ./restaurant_dashboard
+      dockerfile: Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.restaurant-dashboard.rule=Host(`restaurant-dashboard.carvane.localhost`)"
+      - "traefik.http.routers.restaurant-dashboard.entrypoints=web"
+      - "traefik.http.services.restaurant-dashboard.loadbalancer.server.port=3000"
+    depends_on:
+      - traefik
+    networks:
+      - carvane-network
   poli_frontend:
     build:
       context: ./frontend
@@ -75,8 +87,33 @@ services:
     networks:
       - carvane-network
 
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"  # MinIO API
+      - "9001:9001"  # MinIO Console
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes:
+      - minio_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`minio.carvane.localhost`)"
+      - "traefik.http.routers.minio.entrypoints=web"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+      - "traefik.http.routers.minio-console.rule=Host(`minio-console.carvane.localhost`)"
+      - "traefik.http.routers.minio-console.entrypoints=web"
+      - "traefik.http.services.minio-console.loadbalancer.server.port=9001"
+    depends_on:
+      - traefik
+    networks:
+      - carvane-network
+
 volumes:
   poli_db_data:
+  minio_data:
 
 networks:
   carvane-network:

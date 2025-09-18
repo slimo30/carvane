@@ -73,9 +73,9 @@ struct MenuView: View {
     }
     
     private var headerView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             HStack {
-                VStack(alignment: .leading) { 
+                VStack(alignment: .leading, spacing: 4) { 
                     Text("Restaurant Caravane")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -87,7 +87,7 @@ struct MenuView: View {
                 Spacer()
                 
                 // NFC indicator
-                HStack {
+                HStack(spacing: 6) {
                     Image(systemName: "wave.3.right")
                         .foregroundColor(.green)
                     Text("NFC")
@@ -95,31 +95,32 @@ struct MenuView: View {
                         .fontWeight(.medium)
                 }
                 .padding(.horizontal, 12)
-                .padding(.vertical, 6)
+                .padding(.vertical, 8)
                 .background(Color.green.opacity(0.1))
                 .cornerRadius(15)
             }
-            .padding(.horizontal)
-            .padding(.top)
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
         }
         .background(Color(.systemBackground))
     }
     
     private var promoBanner: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
+            HStack(spacing: 16) {
                 ForEach(cartViewModel.availablePromos.prefix(3)) { promo in
                     PromoBanner(promo: promo)
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 20)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 12)
     }
     
     private var categoryFilter: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
+            HStack(spacing: 16) {
                 ForEach(menuViewModel.categories, id: \.self) { category in
                     Button(action: {
                         menuViewModel.setCategory(category)
@@ -127,8 +128,8 @@ struct MenuView: View {
                         Text(category)
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                             .background(
                                 menuViewModel.selectedCategory == category
                                     ? Color.orange
@@ -143,48 +144,63 @@ struct MenuView: View {
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 20)
         }
+        .padding(.vertical, 16)
     }
     
     private var searchBar: some View {
-        HStack {
+        HStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
+                .font(.system(size: 16))
             
             TextField("Rechercher un plat...", text: $menuViewModel.searchText)
                 .textFieldStyle(PlainTextFieldStyle())
+                .font(.body)
                 .onChange(of: menuViewModel.searchText) { newValue in
                     menuViewModel.setSearchText(newValue)
                 }
         }
-        .padding()
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
         .background(Color.gray.opacity(0.1))
-        .cornerRadius(10)
-        .padding(.horizontal)
+        .cornerRadius(12)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 20)
     }
     
     private var menuItemsList: some View {
         Group {
             if menuViewModel.isLoading {
-                ProgressView("Chargement du menu...")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else if menuViewModel.filteredDishes.isEmpty {
                 VStack(spacing: 16) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 50))
-                        .foregroundColor(.gray)
-                    Text("Aucun plat trouvé")
+                    ProgressView()
+                        .scaleEffect(1.2)
+                    Text("Chargement du menu...")
                         .font(.headline)
-                        .foregroundColor(.gray)
-                    Text("Essayez de modifier votre recherche")
-                        .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, 40)
+            } else if menuViewModel.filteredDishes.isEmpty {
+                VStack(spacing: 20) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray.opacity(0.6))
+                    Text("Aucun plat trouvé")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    Text("Essayez de modifier votre recherche")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, 40)
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 12) {
+                    LazyVStack(spacing: 16) {
                         ForEach(menuViewModel.filteredDishes) { dish in
                             DishRow(
                                 dish: dish,
@@ -194,8 +210,9 @@ struct MenuView: View {
                             )
                         }
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 100) // Space for tab bar
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    .padding(.bottom, 120) // Extra space for tab bar
                 }
             }
         }
