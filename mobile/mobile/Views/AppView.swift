@@ -26,7 +26,7 @@ struct AppView: View {
                     .environmentObject(appStateManager)
                 
             case .main:
-                ContentView()
+                MainRestaurantView()
                     .environmentObject(appStateManager)
             }
         }

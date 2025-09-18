@@ -1,7 +1,10 @@
 from contextlib import asynccontextmanager
 from fastapi  import  FastAPI
+from beanie import init_beanie
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
+AsyncIOMotorClient()
 async def initilaie_mongo():
     pass
 

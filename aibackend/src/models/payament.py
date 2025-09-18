@@ -1,4 +1,4 @@
 from pydantic import Base
 
 
-class Payement(Bas)
+class Payement(Base)
