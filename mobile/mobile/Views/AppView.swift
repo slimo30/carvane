@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppView: View {
     @StateObject private var appStateManager = AppStateManager()
+    @State private var tableNumber = "1" // Default table number for demo
     
     var body: some View {
         ZStack {
@@ -26,7 +27,7 @@ struct AppView: View {
                     .environmentObject(appStateManager)
                 
             case .main:
-                MainRestaurantView()
+                MenuView(tableNumber: tableNumber)
                     .environmentObject(appStateManager)
             }
         }
