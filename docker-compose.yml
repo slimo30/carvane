@@ -1,0 +1,44 @@
+services:
+  poli_db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: poli_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - poli_db_data:/var/lib/postgresql/data
+    networks:
+      - carvane-network
+
+  poli_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - poli_db
+    networks:
+      - carvane-network
+
+  poli_backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    depends_on:
+      - poli_db
+    networks:
+      - carvane-network
+
+volumes:
+  poli_db_data:
+
+networks:
+  carvane-network:
+    driver: bridge
