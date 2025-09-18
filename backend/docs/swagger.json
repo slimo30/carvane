@@ -1,0 +1,560 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Caravane API",
+    "version": "1.0",
+    "description": "API pour la gestion des restaurants et des administrateurs"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Type 'Bearer' followed by a space and JWT token."
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/SuperAdmin/restaurants": {
+      "get": {
+        "tags": ["restaurants"],
+        "summary": "Récupérer tous les restaurants",
+        "description": "Retourne la liste de tous les restaurants",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Liste des restaurants récupérée avec succès",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["restaurants"],
+        "summary": "Créer un nouveau restaurant",
+        "description": "Crée un nouveau restaurant dans le système",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "restaurant",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RestaurantInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Restaurant créé avec succès",
+            "schema": {
+              "$ref": "#/definitions/Restaurant"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/SuperAdmin/restaurants/{id}": {
+      "get": {
+        "tags": ["restaurants"],
+        "summary": "Récupérer un restaurant par ID",
+        "description": "Retourne les détails d'un restaurant spécifique",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID du restaurant"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant trouvé",
+            "schema": {
+              "$ref": "#/definitions/Restaurant"
+            }
+          },
+          "404": {
+            "description": "Restaurant non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["restaurants"],
+        "summary": "Mettre à jour un restaurant",
+        "description": "Met à jour les informations d'un restaurant existant",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID du restaurant"
+          },
+          {
+            "name": "restaurant",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RestaurantInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant mis à jour avec succès",
+            "schema": {
+              "$ref": "#/definitions/Restaurant"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Restaurant non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["restaurants"],
+        "summary": "Supprimer un restaurant",
+        "description": "Supprime un restaurant du système",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID du restaurant"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Restaurant supprimé avec succès"
+          },
+          "404": {
+            "description": "Restaurant non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/SuperAdmin/admins": {
+      "get": {
+        "tags": ["admins"],
+        "summary": "Récupérer tous les administrateurs",
+        "description": "Retourne la liste de tous les administrateurs de restaurant",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Liste des administrateurs récupérée avec succès",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["admins"],
+        "summary": "Créer un nouvel administrateur",
+        "description": "Crée un nouvel administrateur de restaurant",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "admin",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Administrateur créé avec succès",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/SuperAdmin/admins/{id}": {
+      "get": {
+        "tags": ["admins"],
+        "summary": "Récupérer un administrateur par ID",
+        "description": "Retourne les détails d'un administrateur spécifique",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID de l'administrateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Administrateur trouvé",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "Administrateur non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["admins"],
+        "summary": "Mettre à jour un administrateur",
+        "description": "Met à jour les informations d'un administrateur existant",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID de l'administrateur"
+          },
+          {
+            "name": "admin",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Administrateur mis à jour avec succès",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Administrateur non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["admins"],
+        "summary": "Supprimer un administrateur",
+        "description": "Supprime un administrateur du système",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "ID de l'administrateur"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Administrateur supprimé avec succès"
+          },
+          "404": {
+            "description": "Administrateur non trouvé",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Restaurant": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Identifiant unique du restaurant"
+        },
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de création"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de dernière mise à jour"
+        },
+        "DeletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de suppression (soft delete)"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Nom du restaurant"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description du restaurant"
+        },
+        "Image": {
+          "type": "string",
+          "description": "URL de l'image du restaurant"
+        },
+        "Price": {
+          "type": "number",
+          "format": "float",
+          "description": "Prix moyen du restaurant"
+        }
+      },
+      "required": ["Name", "Description", "Image", "Price"]
+    },
+    "RestaurantInput": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "Nom du restaurant"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description du restaurant"
+        },
+        "Image": {
+          "type": "string",
+          "description": "URL de l'image du restaurant"
+        },
+        "Price": {
+          "type": "number",
+          "format": "float",
+          "description": "Prix moyen du restaurant"
+        }
+      },
+      "required": ["Name", "Description", "Image", "Price"]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Identifiant unique de l'utilisateur"
+        },
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de création"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de dernière mise à jour"
+        },
+        "DeletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de suppression (soft delete)"
+        },
+        "nom": {
+          "type": "string",
+          "description": "Nom de famille"
+        },
+        "prenom": {
+          "type": "string",
+          "description": "Prénom"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Adresse email"
+        },
+        "password": {
+          "type": "string",
+          "description": "Mot de passe (hashé)"
+        },
+        "numero": {
+          "type": "string",
+          "description": "Numéro de téléphone"
+        },
+        "code": {
+          "type": "string",
+          "description": "Code utilisateur"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["SuperAdmin", "AdminRestaurant", "User"],
+          "description": "Rôle de l'utilisateur"
+        }
+      },
+      "required": ["nom", "prenom", "email", "password", "numero", "code", "role"]
+    },
+    "UserInput": {
+      "type": "object",
+      "properties": {
+        "nom": {
+          "type": "string",
+          "description": "Nom de famille"
+        },
+        "prenom": {
+          "type": "string",
+          "description": "Prénom"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Adresse email"
+        },
+        "password": {
+          "type": "string",
+          "description": "Mot de passe"
+        },
+        "numero": {
+          "type": "string",
+          "description": "Numéro de téléphone"
+        },
+        "code": {
+          "type": "string",
+          "description": "Code utilisateur"
+        }
+      },
+      "required": ["nom", "prenom", "email", "password", "numero", "code"]
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Message d'erreur"
+        },
+        "code": {
+          "type": "integer",
+          "description": "Code d'erreur"
+        }
+      },
+      "required": ["message"]
+    }
+  }
+}

@@ -10,7 +10,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// / 📌 GET /admins → liste tous les admins restaurant
+// GetAllAdmins godoc
+// @Summary Récupérer tous les administrateurs
+// @Description Retourne la liste de tous les administrateurs de restaurant
+// @Tags admins
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {array} models.User
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/admins [get]
 func GetAllAdmins(w http.ResponseWriter, r *http.Request) {
 	var admins []models.User
 	db := database.GetDB()
@@ -23,7 +32,18 @@ func GetAllAdmins(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(admins)
 }
 
-// / 📌 GET /admins/{id} → détail d’un admin restaurant
+// GetAdmin godoc
+// @Summary Récupérer un administrateur par ID
+// @Description Retourne les détails d'un administrateur spécifique
+// @Tags admins
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID de l'administrateur"
+// @Success 200 {object} models.User
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/admins/{id} [get]
 func GetAdmin(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
@@ -39,7 +59,18 @@ func GetAdmin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(admin)
 }
 
-// / 📌 POST /admins → créer un nouvel admin restaurant
+// CreateAdmin godoc
+// @Summary Créer un nouvel administrateur
+// @Description Crée un nouvel administrateur de restaurant
+// @Tags admins
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param admin body models.User true "Données de l'administrateur"
+// @Success 201 {object} models.User
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/admins [post]
 func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 	var admin models.User
 	if err := json.NewDecoder(r.Body).Decode(&admin); err != nil {
@@ -59,7 +90,20 @@ func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(admin)
 }
 
-// / 📌 PUT /admins/{id} → mettre à jour un admin
+// UpdateAdmin godoc
+// @Summary Mettre à jour un administrateur
+// @Description Met à jour les informations d'un administrateur existant
+// @Tags admins
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID de l'administrateur"
+// @Param admin body models.User true "Données mises à jour de l'administrateur"
+// @Success 200 {object} models.User
+// @Failure 400 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/admins/{id} [put]
 func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
@@ -83,7 +127,18 @@ func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(admin)
 }
 
-// / 📌 DELETE /admins/{id} → supprimer un admin
+// DeleteAdmin godoc
+// @Summary Supprimer un administrateur
+// @Description Supprime un administrateur du système
+// @Tags admins
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID de l'administrateur"
+// @Success 204 "Administrateur supprimé avec succès"
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/admins/{id} [delete]
 func DeleteAdmin(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])

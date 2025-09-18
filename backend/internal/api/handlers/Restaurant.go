@@ -4,12 +4,22 @@ import (
 	"caravane/backend/internal/api/models"
 	"caravane/backend/internal/database"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
-// / 📌 GET /restaurants → liste tous les restaurants
+// GetAllRestaurants godoc
+// @Summary Récupérer tous les restaurants
+// @Description Retourne la liste de tous les restaurants
+// @Tags restaurants
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {array} models.Restaurant
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/restaurants [get]
 func GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 	var restaurants []models.Restaurant
 	db := database.GetDB()
@@ -22,7 +32,18 @@ func GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(restaurants)
 }
 
-// / 📌 GET /restaurants/{id} → un restaurant par ID
+// GetRestaurant godoc
+// @Summary Récupérer un restaurant par ID
+// @Description Retourne les détails d'un restaurant spécifique
+// @Tags restaurants
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID du restaurant"
+// @Success 200 {object} models.Restaurant
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/restaurants/{id} [get]
 func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
@@ -38,7 +59,18 @@ func GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(restaurant)
 }
 
-// / 📌 POST /restaurants → créer un restaurant
+// CreateRestaurant godoc
+// @Summary Créer un nouveau restaurant
+// @Description Crée un nouveau restaurant dans le système
+// @Tags restaurants
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param restaurant body models.Restaurant true "Données du restaurant"
+// @Success 201 {object} models.Restaurant
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/restaurants [post]
 func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 	var restaurant models.Restaurant
 	if err := json.NewDecoder(r.Body).Decode(&restaurant); err != nil {
@@ -56,7 +88,20 @@ func CreateRestaurant(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(restaurant)
 }
 
-// / 📌 PUT /restaurants/{id} → mettre à jour un restaurant
+// UpdateRestaurant godoc
+// @Summary Mettre à jour un restaurant
+// @Description Met à jour les informations d'un restaurant existant
+// @Tags restaurants
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID du restaurant"
+// @Param restaurant body models.Restaurant true "Données mises à jour du restaurant"
+// @Success 200 {object} models.Restaurant
+// @Failure 400 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/restaurants/{id} [put]
 func UpdateRestaurant(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
@@ -78,7 +123,18 @@ func UpdateRestaurant(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(restaurant)
 }
 
-// / 📌 DELETE /restaurants/{id} → supprimer un restaurant
+// DeleteRestaurant godoc
+// @Summary Supprimer un restaurant
+// @Description Supprime un restaurant du système
+// @Tags restaurants
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param id path int true "ID du restaurant"
+// @Success 204 "Restaurant supprimé avec succès"
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /SuperAdmin/restaurants/{id} [delete]
 func DeleteRestaurant(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])

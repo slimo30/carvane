@@ -3,11 +3,12 @@ package database
 import (
 	"caravane/backend/internal/api/models"
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/joho/godotenv"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"log"
-	"os"
 )
 
 var DB *gorm.DB
@@ -20,10 +21,11 @@ func InitDB() {
 
 	dsn := os.Getenv("DSN")
 	if dsn == "" {
-		log.Fatal("DSN non défini dans .env")
+		dsn = "app.db"
+
 	}
 
-	DB, err = gorm.Open(sqlite.Open("app.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Erreur de connexion à la base de données SQLite :", err)
 	}
@@ -31,6 +33,7 @@ func InitDB() {
 	modelsToMigrate := []interface{}{
 		&models.User{},
 		&models.Restaurant{},
+		&models.Notif{},
 	}
 	for _, model := range modelsToMigrate {
 		if err := DB.AutoMigrate(model); err != nil {

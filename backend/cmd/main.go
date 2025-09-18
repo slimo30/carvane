@@ -1,13 +1,13 @@
 package main
 
 import (
+	"caravane/backend/internal/api/middleware"
+	"caravane/backend/internal/api/rooter"
+	"caravane/backend/internal/database"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"caravane/backend/internal/api/middleware"
-	"caravane/backend/internal/api/rooter"
-	"caravane/backend/internal/database"
 )
 
 func main() {
@@ -20,14 +20,9 @@ func main() {
 		port = "8000" // Port par défaut localement
 	}
 
-    fmt.Println("http://localhost:8080/")
+	fmt.Println("http://localhost:8080")
 	err := http.ListenAndServe(":"+port, app)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
-  
-
-
-
- 
