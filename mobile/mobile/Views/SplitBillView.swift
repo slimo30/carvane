@@ -457,3 +457,4 @@ struct IndividualPaymentView: View {
         splitBillViewModel: SplitBillViewModel()
     )
 }
+

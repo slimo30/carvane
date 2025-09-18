@@ -108,6 +108,11 @@ class SplitBillViewModel: ObservableObject {
         (splitBill?.totalAmount ?? 0) - totalPaidAmount
     }
     
+    var formattedAmountPerPerson: String {
+        guard let split = splitBill else { return "0.00 DA" }
+        return String(format: "%.2f DA", split.amountPerPerson)
+    }
+    
     func resetSplit() {
         splitBill = nil
         individualPayments = []

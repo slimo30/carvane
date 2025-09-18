@@ -289,8 +289,8 @@ struct CartItemRow: View {
                     .fontWeight(.bold)
                     .foregroundColor(.orange)
             }
-            }
-            .padding()
+        }
+        .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)

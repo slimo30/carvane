@@ -192,7 +192,7 @@ struct PaymentView: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(0.8)
-            } else {
+                } else {
                     Image(systemName: selectedMethod == .nfc ? "wave.3.right" : "creditcard.fill")
                 }
                 
@@ -371,3 +371,4 @@ struct PaymentView: View {
         tableNumber: "5"
     )
 }
+

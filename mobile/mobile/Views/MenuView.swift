@@ -54,13 +54,14 @@ struct MenuView: View {
                 Image(systemName: "cart")
                 Text("Panier")
             }
-            .badge(cartViewModel.cartItems.count > 0 ? cartViewModel.cartItems.count : nil)
+            .badge(cartViewModel.cartItems.count)
             .tag(1)
             
             // Voice Agent Tab
             VoiceAgentView(viewModel: voiceAgentViewModel)
                 .tabItem {
                     Image(systemName: "mic")
+                    
                     Text("Assistant")
                 }
                 .tag(2)
@@ -74,7 +75,7 @@ struct MenuView: View {
     private var headerView: some View {
         VStack(spacing: 8) {
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading) { 
                     Text("Restaurant Caravane")
                         .font(.title2)
                         .fontWeight(.bold)

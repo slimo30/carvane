@@ -101,16 +101,16 @@ struct QRScannerView: View {
 struct QRScannerRepresentable: UIViewRepresentable {
     let onCodeScanned: (String) -> Void
     
-    func makeUIView(context: Context) -> QRScannerView {
-        let scannerView = QRScannerView()
+    func makeUIView(context: Context) -> QRScannerUIView {
+        let scannerView = QRScannerUIView()
         scannerView.onCodeScanned = onCodeScanned
         return scannerView
     }
     
-    func updateUIView(_ uiView: QRScannerView, context: Context) {}
+    func updateUIView(_ uiView: QRScannerUIView, context: Context) {}
 }
 
-class QRScannerView: UIView {
+class QRScannerUIView: UIView {
     var onCodeScanned: ((String) -> Void)?
     private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
@@ -161,7 +161,7 @@ class QRScannerView: UIView {
     }
 }
 
-extension QRScannerView: AVCaptureMetadataOutputObjectsDelegate {
+extension QRScannerUIView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
