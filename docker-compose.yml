@@ -112,6 +112,7 @@ services:
       - carvane-network
 
 volumes:
+  mongo_data:
   poli_db_data:
   minio_data:
 
