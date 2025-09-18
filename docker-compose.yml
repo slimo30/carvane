@@ -1,12 +1,28 @@
 services:
+  traefik:
+    image: traefik:v3.0
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - carvane-network
+
   poli_db:
     image: postgres:13
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: poli_db
-    ports:
-      - "5432:5432"
     volumes:
       - poli_db_data:/var/lib/postgresql/data
     networks:
@@ -16,10 +32,13 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`carvane.localhost`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
     depends_on:
-      - poli_db
+      - traefik
     networks:
       - carvane-network
 
@@ -27,8 +46,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "8001:8000"
     environment:
       - PORT=8000
       - DB_HOST=poli_db
@@ -36,7 +53,13 @@ services:
       - DB_USER=user
       - DB_PASSWORD=password
       - DB_NAME=poli_db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.carvane.localhost`)"
+      - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
     depends_on:
+      - traefik
       - poli_db
     networks:
       - carvane-network
