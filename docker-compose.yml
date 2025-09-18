@@ -28,9 +28,14 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - PORT=8000
+      - DB_HOST=poli_db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=poli_db
     depends_on:
       - poli_db
     networks:

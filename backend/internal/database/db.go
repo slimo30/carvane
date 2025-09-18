@@ -7,27 +7,49 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func InitDB() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Erreur de chargement du fichier .env :", err)
+	// Try to load .env file, but don't fail if it doesn't exist
+	godotenv.Load(".env")
+
+	// Get database configuration from environment variables
+	dbHost := os.Getenv("DB_HOST")
+	if dbHost == "" {
+		dbHost = "localhost"
 	}
 
-	dsn := os.Getenv("DSN")
-	if dsn == "" {
-		dsn = "app.db"
-
+	dbPort := os.Getenv("DB_PORT")
+	if dbPort == "" {
+		dbPort = "5432"
 	}
 
-	DB, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
+	dbUser := os.Getenv("DB_USER")
+	if dbUser == "" {
+		dbUser = "user"
+	}
+
+	dbPassword := os.Getenv("DB_PASSWORD")
+	if dbPassword == "" {
+		dbPassword = "password"
+	}
+
+	dbName := os.Getenv("DB_NAME")
+	if dbName == "" {
+		dbName = "poli_db"
+	}
+
+	// Build PostgreSQL DSN
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbPort, dbUser, dbPassword, dbName)
+
+	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Erreur de connexion à la base de données SQLite :", err)
+		log.Fatal("Erreur de connexion à la base de données PostgreSQL :", err)
 	}
 
 	modelsToMigrate := []interface{}{
@@ -53,7 +75,7 @@ func InitDB() {
 		log.Fatal("Impossible de se connecter à la base de données :", err)
 	}
 
-	fmt.Println("Connexion à la base de données SQLite réussie.")
+	fmt.Println("Connexion à la base de données PostgreSQL réussie.")
 }
 
 // GetDB retourne la connexion à la base de données

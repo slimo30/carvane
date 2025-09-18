@@ -6,6 +6,29 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		070B84402E7C95B8008DEBD2 /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B843B2E7C95B8008DEBD2 /* Dish.swift */; };
+		070B84412E7C95B8008DEBD2 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B843C2E7C95B8008DEBD2 /* Order.swift */; };
+		070B84422E7C95B8008DEBD2 /* Promo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B843D2E7C95B8008DEBD2 /* Promo.swift */; };
+		070B84432E7C95B8008DEBD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B843E2E7C95B8008DEBD2 /* User.swift */; };
+		070B84492E7C95D2008DEBD2 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84442E7C95D2008DEBD2 /* PaymentService.swift */; };
+		070B844A2E7C95D2008DEBD2 /* PromoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84452E7C95D2008DEBD2 /* PromoService.swift */; };
+		070B844B2E7C95D2008DEBD2 /* VoiceAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84472E7C95D2008DEBD2 /* VoiceAgentService.swift */; };
+		070B844C2E7C95D2008DEBD2 /* QRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84462E7C95D2008DEBD2 /* QRService.swift */; };
+		070B844F2E7C95E2008DEBD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B844D2E7C95E2008DEBD2 /* Extensions.swift */; };
+		070B84552E7C95FD008DEBD2 /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84502E7C95FD008DEBD2 /* CartViewModel.swift */; };
+		070B84562E7C95FD008DEBD2 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84512E7C95FD008DEBD2 /* MenuViewModel.swift */; };
+		070B84572E7C95FD008DEBD2 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84522E7C95FD008DEBD2 /* PaymentViewModel.swift */; };
+		070B84582E7C95FD008DEBD2 /* SplitBillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84532E7C95FD008DEBD2 /* SplitBillViewModel.swift */; };
+		070B84612E7C960D008DEBD2 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845C2E7C960D008DEBD2 /* PaymentView.swift */; };
+		070B84622E7C960D008DEBD2 /* PromoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845D2E7C960D008DEBD2 /* PromoBanner.swift */; };
+		070B84632E7C960D008DEBD2 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845B2E7C960D008DEBD2 /* MenuView.swift */; };
+		070B84642E7C960D008DEBD2 /* DishRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845A2E7C960D008DEBD2 /* DishRow.swift */; };
+		070B84652E7C960D008DEBD2 /* VoiceAgentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845F2E7C960D008DEBD2 /* VoiceAgentView.swift */; };
+		070B84662E7C960D008DEBD2 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B84592E7C960D008DEBD2 /* CartView.swift */; };
+		070B84672E7C960D008DEBD2 /* SplitBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B845E2E7C960D008DEBD2 /* SplitBillView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0798DA342E7C918400DDD2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +47,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		070B843B2E7C95B8008DEBD2 /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
+		070B843C2E7C95B8008DEBD2 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		070B843D2E7C95B8008DEBD2 /* Promo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promo.swift; sourceTree = "<group>"; };
+		070B843E2E7C95B8008DEBD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		070B84442E7C95D2008DEBD2 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
+		070B84452E7C95D2008DEBD2 /* PromoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoService.swift; sourceTree = "<group>"; };
+		070B84462E7C95D2008DEBD2 /* QRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRService.swift; sourceTree = "<group>"; };
+		070B84472E7C95D2008DEBD2 /* VoiceAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAgentService.swift; sourceTree = "<group>"; };
+		070B844D2E7C95E2008DEBD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		070B84502E7C95FD008DEBD2 /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		070B84512E7C95FD008DEBD2 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		070B84522E7C95FD008DEBD2 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		070B84532E7C95FD008DEBD2 /* SplitBillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillViewModel.swift; sourceTree = "<group>"; };
+		070B84592E7C960D008DEBD2 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		070B845A2E7C960D008DEBD2 /* DishRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRow.swift; sourceTree = "<group>"; };
+		070B845B2E7C960D008DEBD2 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		070B845C2E7C960D008DEBD2 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		070B845D2E7C960D008DEBD2 /* PromoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBanner.swift; sourceTree = "<group>"; };
+		070B845E2E7C960D008DEBD2 /* SplitBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillView.swift; sourceTree = "<group>"; };
+		070B845F2E7C960D008DEBD2 /* VoiceAgentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAgentView.swift; sourceTree = "<group>"; };
 		0798DA262E7C918200DDD2E2 /* mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0798DA332E7C918400DDD2E2 /* mobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0798DA3D2E7C918400DDD2E2 /* mobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,9 +115,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		070B843F2E7C95B8008DEBD2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				070B843B2E7C95B8008DEBD2 /* Dish.swift */,
+				070B843C2E7C95B8008DEBD2 /* Order.swift */,
+				070B843D2E7C95B8008DEBD2 /* Promo.swift */,
+				070B843E2E7C95B8008DEBD2 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		070B84482E7C95D2008DEBD2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				070B84442E7C95D2008DEBD2 /* PaymentService.swift */,
+				070B84452E7C95D2008DEBD2 /* PromoService.swift */,
+				070B84462E7C95D2008DEBD2 /* QRService.swift */,
+				070B84472E7C95D2008DEBD2 /* VoiceAgentService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		070B844E2E7C95E2008DEBD2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				070B844D2E7C95E2008DEBD2 /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		070B84542E7C95FD008DEBD2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				070B84502E7C95FD008DEBD2 /* CartViewModel.swift */,
+				070B84512E7C95FD008DEBD2 /* MenuViewModel.swift */,
+				070B84522E7C95FD008DEBD2 /* PaymentViewModel.swift */,
+				070B84532E7C95FD008DEBD2 /* SplitBillViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		070B84602E7C960D008DEBD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				070B84592E7C960D008DEBD2 /* CartView.swift */,
+				070B845A2E7C960D008DEBD2 /* DishRow.swift */,
+				070B845B2E7C960D008DEBD2 /* MenuView.swift */,
+				070B845C2E7C960D008DEBD2 /* PaymentView.swift */,
+				070B845D2E7C960D008DEBD2 /* PromoBanner.swift */,
+				070B845E2E7C960D008DEBD2 /* SplitBillView.swift */,
+				070B845F2E7C960D008DEBD2 /* VoiceAgentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0798DA1D2E7C918200DDD2E2 = {
 			isa = PBXGroup;
 			children = (
+				070B84602E7C960D008DEBD2 /* Views */,
+				070B84542E7C95FD008DEBD2 /* ViewModels */,
+				070B844E2E7C95E2008DEBD2 /* Utils */,
+				070B84482E7C95D2008DEBD2 /* Services */,
+				070B843F2E7C95B8008DEBD2 /* Models */,
 				0798DA282E7C918200DDD2E2 /* mobile */,
 				0798DA362E7C918400DDD2E2 /* mobileTests */,
 				0798DA402E7C918400DDD2E2 /* mobileUITests */,
@@ -236,6 +339,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				070B84402E7C95B8008DEBD2 /* Dish.swift in Sources */,
+				070B84412E7C95B8008DEBD2 /* Order.swift in Sources */,
+				070B84552E7C95FD008DEBD2 /* CartViewModel.swift in Sources */,
+				070B84562E7C95FD008DEBD2 /* MenuViewModel.swift in Sources */,
+				070B84572E7C95FD008DEBD2 /* PaymentViewModel.swift in Sources */,
+				070B84582E7C95FD008DEBD2 /* SplitBillViewModel.swift in Sources */,
+				070B84492E7C95D2008DEBD2 /* PaymentService.swift in Sources */,
+				070B844A2E7C95D2008DEBD2 /* PromoService.swift in Sources */,
+				070B84612E7C960D008DEBD2 /* PaymentView.swift in Sources */,
+				070B84622E7C960D008DEBD2 /* PromoBanner.swift in Sources */,
+				070B84632E7C960D008DEBD2 /* MenuView.swift in Sources */,
+				070B84642E7C960D008DEBD2 /* DishRow.swift in Sources */,
+				070B84652E7C960D008DEBD2 /* VoiceAgentView.swift in Sources */,
+				070B84662E7C960D008DEBD2 /* CartView.swift in Sources */,
+				070B84672E7C960D008DEBD2 /* SplitBillView.swift in Sources */,
+				070B844B2E7C95D2008DEBD2 /* VoiceAgentService.swift in Sources */,
+				070B844C2E7C95D2008DEBD2 /* QRService.swift in Sources */,
+				070B84422E7C95B8008DEBD2 /* Promo.swift in Sources */,
+				070B844F2E7C95E2008DEBD2 /* Extensions.swift in Sources */,
+				070B84432E7C95B8008DEBD2 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

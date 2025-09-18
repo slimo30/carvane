@@ -18,9 +18,9 @@ const userContextKey = contextKey("user")
 
 func JwtMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Exclure les routes de documentation Swagger
+		// Exclure les routes de documentation Swagger et health check
 		if r.URL.Path == "/login" || r.URL.Path == "/submit" || r.URL.Path == "/" ||
-			strings.HasPrefix(r.URL.Path, "/docs/") {
+			r.URL.Path == "/health" || strings.HasPrefix(r.URL.Path, "/docs/") {
 			next.ServeHTTP(w, r)
 			return
 		}
