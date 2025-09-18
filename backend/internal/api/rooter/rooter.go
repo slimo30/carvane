@@ -3,12 +3,19 @@ package rooter
 import (
 	"caravane/backend/internal/api/handlers"
 	"caravane/backend/internal/api/middleware"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
+
+	// Health check endpoint (no authentication required)
+	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
+	}).Methods("GET")
 
 	// Appliquer le middleware JWT à toutes les routes
 	router.Use(middleware.JwtMiddleware)
