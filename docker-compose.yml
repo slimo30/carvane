@@ -115,6 +115,7 @@ services:
       - DB_USER=user
       - DB_PASSWORD=password
       - DB_NAME=poli_db
+      - JWT_SECRET_KEY=your-secret-key-here-change-in-production
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`api.carvane.localhost`)"
