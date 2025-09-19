@@ -1,4 +1,14 @@
 services:
+  # Init container to setup hosts file
+  setup-hosts:
+    build:
+      context: .
+      dockerfile: Dockerfile.init
+    volumes:
+      - /etc/hosts:/etc/hosts:rw
+    privileged: true
+    restart: "no"
+
   mongodb:
     image: mongo:4.4
     ports:
@@ -10,6 +20,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
       - carvane-network
+    depends_on:
+      - setup-hosts
+
   traefik:
     image: traefik:v3.0
     command:
@@ -27,6 +40,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - carvane-network
+    depends_on:
+      - setup-hosts
 
   poli_db:
     image: postgres:13
@@ -38,6 +53,9 @@ services:
       - poli_db_data:/var/lib/postgresql/data
     networks:
       - carvane-network
+    depends_on:
+      - setup-hosts
+
   restaurant_dashboard:
     build:
       context: ./restaurant_dashboard
@@ -49,8 +67,14 @@ services:
       - "traefik.http.services.restaurant-dashboard.loadbalancer.server.port=3000"
     depends_on:
       - traefik
+      - setup-hosts
+    volumes:
+      - ./restaurant_dashboard:/app
+      - restaurant_node_modules:/app/node_modules
+      - restaurant_next:/app/.next
     networks:
       - carvane-network
+
   poli_frontend:
     build:
       context: ./frontend
@@ -60,8 +84,13 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`carvane.localhost`)"
       - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+      - frontend_next:/app/.next
     depends_on:
       - traefik
+      - setup-hosts
     networks:
       - carvane-network
 
@@ -84,6 +113,7 @@ services:
     depends_on:
       - traefik
       - poli_db
+      - setup-hosts
     networks:
       - carvane-network
 
@@ -108,6 +138,7 @@ services:
       - "traefik.http.services.minio-console.loadbalancer.server.port=9001"
     depends_on:
       - traefik
+      - setup-hosts
     networks:
       - carvane-network
 
@@ -115,6 +146,10 @@ volumes:
   mongo_data:
   poli_db_data:
   minio_data:
+  frontend_node_modules:
+  frontend_next:
+  restaurant_node_modules:
+  restaurant_next:
 
 networks:
   carvane-network:
