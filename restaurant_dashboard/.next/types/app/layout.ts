@@ -1,4 +1,4 @@
-// File: /Users/macbookair/Documents/GitHub/carvane/restaurant_dashboard/app/layout.tsx
+// File: /Users/omar/Documents/GitHub/hakathon/carvane/restaurant_dashboard/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

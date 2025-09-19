@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Users, Clock, AlertTriangle, CheckCircle, TrendingUp, Search, Filter, BookOpen } from "lucide-react"
+import { Users as PhUsers, Clock as PhClock, Warning, CheckCircle as PhCheckCircle, TrendUp, MagnifyingGlass, SlidersHorizontal, Books } from "phosphor-react"
 import { AdminLayout } from "./admin-layout"
 import Link from "next/link"
 
@@ -16,7 +16,7 @@ export function AdminOverview() {
       value: "85%",
       change: "+12%",
       trend: "up" as const,
-      icon: Users,
+      icon: PhUsers,
       color: "text-green-600",
     },
     {
@@ -24,7 +24,7 @@ export function AdminOverview() {
       value: "18 min",
       change: "-3 min",
       trend: "down" as const,
-      icon: Clock,
+      icon: PhClock,
       color: "text-blue-600",
     },
     {
@@ -32,7 +32,7 @@ export function AdminOverview() {
       value: "2",
       change: "-5",
       trend: "down" as const,
-      icon: AlertTriangle,
+      icon: Warning,
       color: "text-amber-600",
     },
     {
@@ -40,7 +40,7 @@ export function AdminOverview() {
       value: "3",
       change: "+1",
       trend: "up" as const,
-      icon: CheckCircle,
+      icon: PhCheckCircle,
       color: "text-primary",
     },
   ]
@@ -83,13 +83,13 @@ export function AdminOverview() {
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "validation_request":
-        return <CheckCircle className="h-4 w-4 text-secondary" />
+        return <PhCheckCircle className="h-4 w-4 text-secondary" />
       case "problem_reported":
-        return <AlertTriangle className="h-4 w-4 text-destructive" />
+        return <Warning className="h-4 w-4 text-destructive" />
       case "session_completed":
-        return <Clock className="h-4 w-4 text-primary" />
+        return <PhClock className="h-4 w-4 text-primary" />
       case "validation_approved":
-        return <CheckCircle className="h-4 w-4 text-green-500" />
+        return <PhCheckCircle className="h-4 w-4 text-green-500" />
       default:
         return null
     }
@@ -122,11 +122,11 @@ export function AdminOverview() {
 
           <div className="flex items-center space-x-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input placeholder="Rechercher un employé..." className="pl-10 w-64" />
             </div>
             <Button variant="outline">
-              <Filter className="h-4 w-4 mr-2" />
+              <SlidersHorizontal className="h-4 w-4 mr-2" />
               Filtres
             </Button>
           </div>
@@ -145,7 +145,7 @@ export function AdminOverview() {
                 <CardContent>
                   <div className="text-2xl font-bold">{kpi.value}</div>
                   <div className="flex items-center text-xs text-muted-foreground">
-                    <TrendingUp className={`h-3 w-3 mr-1 ${kpi.trend === "up" ? "text-green-500" : "text-red-500"}`} />
+                    <TrendUp className={`h-3 w-3 mr-1 ${kpi.trend === "up" ? "text-green-500" : "text-red-500"}`} />
                     {kpi.change} depuis le mois dernier
                   </div>
                 </CardContent>
@@ -190,7 +190,7 @@ export function AdminOverview() {
               <CardContent className="space-y-3">
                 <Link href="/admin/validation-queue">
                   <Button className="w-full justify-start">
-                    <CheckCircle className="h-4 w-4 mr-2" />
+                    <PhCheckCircle className="h-4 w-4 mr-2" />
                     File de validation
                     <Badge variant="destructive" className="ml-auto">
                       3
@@ -200,7 +200,7 @@ export function AdminOverview() {
 
                 <Link href="/admin/problems">
                   <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <AlertTriangle className="h-4 w-4 mr-2" />
+                    <Warning className="h-4 w-4 mr-2" />
                     Problèmes ouverts
                     <Badge variant="secondary" className="ml-auto">
                       2
@@ -210,14 +210,14 @@ export function AdminOverview() {
 
                 <Link href="/admin/employees">
                   <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Users className="h-4 w-4 mr-2" />
+                    <PhUsers className="h-4 w-4 mr-2" />
                     Gérer employés
                   </Button>
                 </Link>
 
                 <Link href="/admin/recipes">
                   <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <BookOpen className="h-4 w-4 mr-2" />
+                    <Books className="h-4 w-4 mr-2" />
                     Gérer recettes
                   </Button>
                 </Link>

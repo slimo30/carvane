@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { LayoutDashboard, Users, CheckSquare, BookOpen, AlertTriangle, LogOut, Bell } from "lucide-react"
+import { SignOut, BellRinging, Books, Users as PhUsers, Layout as PhLayout, CheckSquare as PhCheckSquare, Warning } from "phosphor-react"
 import { cn } from "@/lib/utils"
 
 interface AdminLayoutProps {
@@ -19,32 +19,32 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     {
       name: "Vue d'ensemble",
       href: "/admin",
-      icon: LayoutDashboard,
+      icon: PhLayout,
       current: pathname === "/admin",
     },
     {
       name: "Employés",
       href: "/admin/employees",
-      icon: Users,
+      icon: PhUsers,
       current: pathname === "/admin/employees",
     },
     {
       name: "File de validation",
       href: "/admin/validation-queue",
-      icon: CheckSquare,
+      icon: PhCheckSquare,
       current: pathname === "/admin/validation-queue",
       badge: 3,
     },
     {
       name: "Gestion recettes",
       href: "/admin/recipes",
-      icon: BookOpen,
+      icon: Books,
       current: pathname === "/admin/recipes",
     },
     {
       name: "Problèmes",
       href: "/admin/problems",
-      icon: AlertTriangle,
+      icon: Warning,
       current: pathname === "/admin/problems",
       badge: 2,
     },
@@ -62,7 +62,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">
-              <Bell className="h-4 w-4 mr-2" />
+              <BellRinging className="h-4 w-4 mr-2" />
               Notifications
               <Badge variant="destructive" className="ml-2">
                 2
@@ -75,7 +75,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                 <div className="text-xs text-muted-foreground">Administrateur</div>
               </div>
               <Button variant="ghost" size="sm">
-                <LogOut className="h-4 w-4" />
+                <SignOut className="h-4 w-4" />
               </Button>
             </div>
           </div>

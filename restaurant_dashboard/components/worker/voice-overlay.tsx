@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Mic, MicOff, Volume2, SkipForward, RotateCcw, X } from "lucide-react"
+import { Microphone, MicrophoneSlash, SpeakerHigh, SkipForward, ArrowCounterClockwise, X } from "phosphor-react"
 
 interface VoiceOverlayProps {
   currentStep: {
@@ -107,7 +107,7 @@ export function VoiceOverlay({ currentStep, onNext, onRepeat, onClose }: VoiceOv
                   isSpeaking ? "bg-primary animate-pulse" : "bg-muted"
                 }`}
               >
-                <Volume2 className="h-8 w-8 text-white" />
+                <SpeakerHigh className="h-8 w-8 text-white" />
               </div>
             </div>
 
@@ -131,12 +131,12 @@ export function VoiceOverlay({ currentStep, onNext, onRepeat, onClose }: VoiceOv
               >
                 {isListening ? (
                   <>
-                    <MicOff className="h-4 w-4 mr-2" />
+                    <MicrophoneSlash className="h-4 w-4 mr-2" />
                     Arrêter l'écoute
                   </>
                 ) : (
                   <>
-                    <Mic className="h-4 w-4 mr-2" />
+                    <Microphone className="h-4 w-4 mr-2" />
                     Commande vocale
                   </>
                 )}
@@ -159,7 +159,7 @@ export function VoiceOverlay({ currentStep, onNext, onRepeat, onClose }: VoiceOv
 
             <div className="flex space-x-2">
               <Button variant="outline" onClick={onRepeat} className="flex-1 bg-transparent">
-                <RotateCcw className="h-4 w-4 mr-2" />
+                <ArrowCounterClockwise className="h-4 w-4 mr-2" />
                 Répéter
               </Button>
               <Button onClick={onNext} className="flex-1">

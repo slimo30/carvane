@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { SkipForward, RotateCcw, AlertTriangle, CheckCircle, Timer, Volume2, VolumeX } from "lucide-react"
+import { SkipForward, ArrowCounterClockwise, Warning, CheckCircle as PhCheckCircle, Timer as PhTimer, SpeakerHigh, SpeakerX } from "phosphor-react"
 import { WorkerHeader } from "./worker-header"
 import { VoiceOverlay } from "./voice-overlay"
 import { TimerDisplay } from "./timer-display"
@@ -126,7 +126,7 @@ export function RecipeExecution({ recipeId }: RecipeExecutionProps) {
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">{recipe.name}</h1>
             <Badge variant="outline" className="flex items-center">
-              <Timer className="h-3 w-3 mr-1" />
+              <PhTimer className="h-3 w-3 mr-1" />
               {recipe.estimatedTime} min
             </Badge>
           </div>
@@ -174,7 +174,7 @@ export function RecipeExecution({ recipeId }: RecipeExecutionProps) {
                     {isStepCompleted && <CheckCircle className="h-5 w-5 text-green-500 ml-2" />}
                   </CardTitle>
                   <Button variant="ghost" size="sm" onClick={() => setIsVoiceActive(!isVoiceActive)}>
-                    {isVoiceActive ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                    {isVoiceActive ? <SpeakerHigh className="h-4 w-4" /> : <SpeakerX className="h-4 w-4" />}
                   </Button>
                 </div>
               </CardHeader>
@@ -197,7 +197,7 @@ export function RecipeExecution({ recipeId }: RecipeExecutionProps) {
                     />
                     {!isTimerActive && (
                       <Button onClick={handleStartTimer} className="mt-2">
-                        <Timer className="h-4 w-4 mr-2" />
+                        <PhTimer className="h-4 w-4 mr-2" />
                         Démarrer le minuteur
                       </Button>
                     )}
@@ -207,12 +207,12 @@ export function RecipeExecution({ recipeId }: RecipeExecutionProps) {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">
                   <Button variant="outline" onClick={handlePreviousStep} disabled={currentStepIndex === 0}>
-                    <RotateCcw className="h-4 w-4 mr-2" />
+                    <ArrowCounterClockwise className="h-4 w-4 mr-2" />
                     Répéter
                   </Button>
 
                   <Button variant="destructive" onClick={() => setShowProblemModal(true)}>
-                    <AlertTriangle className="h-4 w-4 mr-2" />
+                    <Warning className="h-4 w-4 mr-2" />
                     Problème
                   </Button>
 
@@ -223,7 +223,7 @@ export function RecipeExecution({ recipeId }: RecipeExecutionProps) {
                     </Button>
                   ) : (
                     <Button onClick={handleCompleteRecipe} className="ml-auto">
-                      <CheckCircle className="h-4 w-4 mr-2" />
+                      <PhCheckCircle className="h-4 w-4 mr-2" />
                       Terminé
                     </Button>
                   )}

@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { AlertTriangle } from "lucide-react"
+import { Warning } from "phosphor-react"
 
 interface ProblemModalProps {
   isOpen: boolean
@@ -74,7 +74,7 @@ export function ProblemModal({ isOpen, onClose, stepId, recipeId }: ProblemModal
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center">
-            <AlertTriangle className="h-5 w-5 text-destructive mr-2" />
+            <Warning className="h-5 w-5 text-destructive mr-2" />
             Signaler un problème
           </DialogTitle>
           <DialogDescription>Décrivez le problème rencontré. Le chef sera automatiquement notifié.</DialogDescription>
