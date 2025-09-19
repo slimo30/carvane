@@ -1,0 +1,26 @@
+FROM alpine:latest
+
+# Install required packages
+RUN apk add --no-cache bash
+
+# Copy the setup script
+COPY setup-hosts.sh /setup-hosts.sh
+RUN chmod +x /setup-hosts.sh
+
+# Create a script that will run the setup
+RUN echo '#!/bin/bash' > /entrypoint.sh && \
+    echo 'echo "Setting up hosts file..."' >> /entrypoint.sh && \
+    echo '/setup-hosts.sh' >> /entrypoint.sh && \
+    echo 'echo "Hosts setup completed!"' >> /entrypoint.sh && \
+    echo 'echo "All services are now accessible at:"' >> /entrypoint.sh && \
+    echo 'echo "  Main Frontend: http://carvane.localhost"' >> /entrypoint.sh && \
+    echo 'echo "  Restaurant Dashboard: http://restaurant-dashboard.carvane.localhost"' >> /entrypoint.sh && \
+    echo 'echo "  Backend API: http://api.carvane.localhost"' >> /entrypoint.sh && \
+    echo 'echo "  MinIO API: http://minio.carvane.localhost"' >> /entrypoint.sh && \
+    echo 'echo "  MinIO Console: http://minio-console.carvane.localhost"' >> /entrypoint.sh && \
+    echo 'echo "  Traefik Dashboard: http://localhost:8080"' >> /entrypoint.sh && \
+    echo 'echo ""' >> /entrypoint.sh && \
+    echo 'echo "You can now run: docker compose up"' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
