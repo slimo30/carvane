@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
-import { CookingPot, Robot } from "phosphor-react"
+import { CookingPot, Robot, ChefHat as PhChefHat } from "phosphor-react"
 import { EnhancedWorkerDashboard } from "@/components/worker/enhanced-worker-dashboard"
 import { AIOnboarding } from "@/components/worker/ai-onboarding"
 
@@ -50,7 +50,7 @@ export default function WorkerPage() {
         <CardHeader className="text-center">
           <div className="flex justify-center mb-6">
             <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center">
-              <CookingPot size={40} className="text-primary-foreground" weight="fill" />
+              <PhChefHat size={40} className="text-primary-foreground" />
             </div>
           </div>
           <CardTitle className="text-3xl font-bold mb-4">Bienvenue dans votre cuisine !</CardTitle>
@@ -95,7 +95,7 @@ export default function WorkerPage() {
             <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleSkipOnboarding}>
               <CardHeader>
                 <div className="flex items-center space-x-3 mb-2">
-                  <CookingPot size={24} className="text-secondary" weight="fill" />
+                  <PhChefHat size={24} className="text-secondary" />
                   <CardTitle className="text-xl">Commencer directement</CardTitle>
                 </div>
                 <CardDescription>
@@ -106,7 +106,7 @@ export default function WorkerPage() {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-muted-foreground">
-                    <CookingPot className="h-4 w-4 mr-2" weight="fill" />
+                    <ChefHat className="h-4 w-4 mr-2" />
                     Accès immédiat au tableau de bord
                   </div>
                   <div className="flex items-center text-sm text-muted-foreground">

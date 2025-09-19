@@ -25,9 +25,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("chef-mode-user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    // Check if we're in the browser environment
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("chef-mode-user")
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      }
     }
     setIsLoading(false)
   }, [])
@@ -49,7 +52,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("chef-mode-user")
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("chef-mode-user")
+    }
   }
 
   return <AuthContext.Provider value={{ user, login, logout, isLoading }}>{children}</AuthContext.Provider>

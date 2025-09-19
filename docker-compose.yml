@@ -78,7 +78,7 @@ services:
     volumes:
       - ./restaurant_dashboard:/app
       - restaurant_next:/app/.next
-    command: sh -lc "./node_modules/.bin/next dev"
+    command: sh -lc "pnpm dev --port 3000 --hostname 0.0.0.0"
     dns:
       - 8.8.8.8
       - 1.1.1.1
