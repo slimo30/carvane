@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Clock, Users, AlertTriangle } from "lucide-react"
+import { Clock as PhClock, Users as PhUsers, Warning } from "phosphor-react"
 import Link from "next/link"
 import { WorkerHeader } from "./worker-header"
 import Image from "next/image"
@@ -103,17 +103,17 @@ export function RecipeList() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center text-muted-foreground">
-                      <Clock className="h-4 w-4 mr-1" />
+                      <PhClock className="h-4 w-4 mr-1" />
                       {recipe.estimatedTime} min
                     </div>
                     <div className="flex items-center text-muted-foreground">
-                      <Users className="h-4 w-4 mr-1" />1 portion
+                      <PhUsers className="h-4 w-4 mr-1" />1 portion
                     </div>
                   </div>
 
                   {recipe.allergens.length > 0 && (
                     <div className="flex items-start space-x-2">
-                      <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                      <Warning className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" />
                       <div className="flex flex-wrap gap-1">
                         {recipe.allergens.map((allergen) => (
                           <Badge key={allergen} variant="outline" className="text-xs">

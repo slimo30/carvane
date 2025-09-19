@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { ChefHat, Bot, MessageCircle, CheckCircle, ArrowRight, Sparkles, Clock, BookOpen } from "lucide-react"
+import { MessageCircle, CheckCircle, ArrowRight, Sparkles, Clock } from "lucide-react"
+import { ChefHat as PhChefHat, Robot, BookOpen as PhBookOpen } from "phosphor-react"
 import Link from "next/link"
 
 interface OnboardingStep {
@@ -17,7 +18,11 @@ interface OnboardingStep {
   aiMessage: string
 }
 
-export function AIOnboarding() {
+type AIOnboardingProps = {
+  onComplete?: () => void
+}
+
+export function AIOnboarding({ onComplete }: AIOnboardingProps) {
   const [currentStep, setCurrentStep] = useState(0)
   const [showAIMessage, setShowAIMessage] = useState(false)
 
@@ -78,7 +83,7 @@ export function AIOnboarding() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <ChefHat className="h-8 w-8 text-primary" />
+              <PhChefHat size={32} className="text-primary" />
               <div>
                 <h1 className="text-xl font-bold">Formation Cuisinier</h1>
                 <p className="text-sm text-muted-foreground">Nouveau membre de l'équipe</p>
@@ -97,7 +102,7 @@ export function AIOnboarding() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center">
-              <BookOpen className="h-5 w-5 mr-2 text-primary" />
+              <PhBookOpen size={20} className="mr-2 text-primary" />
               Progression de l'intégration
             </CardTitle>
             <CardDescription>Votre parcours d'intégration personnalisé avec assistance IA</CardDescription>
@@ -134,7 +139,7 @@ export function AIOnboarding() {
           <Card className="lg:order-2">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Bot className="h-5 w-5 mr-2 text-accent" />
+                <Robot size={20} className="mr-2 text-accent" />
                 Assistant IA Culinaire
               </CardTitle>
               <CardDescription>Votre guide personnel pour l'intégration</CardDescription>
@@ -144,7 +149,7 @@ export function AIOnboarding() {
                 <div className="flex items-start space-x-3">
                   <Avatar className="bg-accent">
                     <AvatarFallback>
-                      <Bot className="h-4 w-4 text-accent-foreground" />
+                      <Robot size={16} className="text-accent-foreground" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
@@ -239,6 +244,14 @@ export function AIOnboarding() {
               </Link>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Finish / Complete Onboarding */}
+        <div className="mt-6">
+          <Button className="w-full md:w-auto" onClick={() => onComplete && onComplete()}>
+            <CheckCircle className="h-4 w-4 mr-2" />
+            Terminer l'intégration
+          </Button>
         </div>
       </div>
     </div>

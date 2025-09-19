@@ -18,26 +18,23 @@ const userContextKey = contextKey("user")
 
 func JwtMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Exclure les routes de documentation Swagger et health check
-		if r.URL.Path == "/login" || r.URL.Path == "/submit" || r.URL.Path == "/" ||
+		// Exclure les routes publiques et health check
+		if r.URL.Path == "/login" || r.URL.Path == "/logout" || r.URL.Path == "/submit" || r.URL.Path == "/" ||
 			r.URL.Path == "/health" || strings.HasPrefix(r.URL.Path, "/docs/") {
 			next.ServeHTTP(w, r)
 			return
 		}
 
-		authHeader := r.Header.Get("Authorization")
-		if authHeader == "" {
-			http.Error(w, "Missing or invalid Authorization header", http.StatusUnauthorized)
-			return
-		}
-		if !strings.HasPrefix(authHeader, "Bearer ") {
-			http.Error(w, "lol", http.StatusUnauthorized)
+		// Read token from cookie instead of Authorization header
+		c, err := r.Cookie("auth_token")
+		if err != nil || c.Value == "" {
+			http.Error(w, "Missing auth cookie", http.StatusUnauthorized)
 			return
 		}
 
-		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
-		claims := &models.Claims{}
-		token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+		// Parse token claims using MapClaims and project role into our context
+		mapClaims := jwt.MapClaims{}
+		token, err := jwt.ParseWithClaims(c.Value, mapClaims, func(token *jwt.Token) (interface{}, error) {
 			return JwtKey, nil
 		})
 
@@ -46,8 +43,12 @@ func JwtMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
+		// Extract role from map claims, default to empty
+		role, _ := mapClaims["role"].(string)
+		userClaims := &models.Claims{Role: role}
+
 		// Injecter les claims dans le contexte
-		ctx := context.WithValue(r.Context(), "user", claims)
+		ctx := context.WithValue(r.Context(), "user", userClaims)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

@@ -17,6 +17,10 @@ func NewRouter() *mux.Router {
 		w.Write([]byte("OK"))
 	}).Methods("GET")
 
+	// Auth endpoints (public): login/logout set/clear cookie
+	router.HandleFunc("/login", handlers.Login).Methods("POST")
+	router.HandleFunc("/logout", handlers.Logout).Methods("POST")
+
 	// Appliquer le middleware JWT à toutes les routes
 	router.Use(middleware.JwtMiddleware)
 

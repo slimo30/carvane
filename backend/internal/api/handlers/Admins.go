@@ -24,7 +24,7 @@ func GetAllAdmins(w http.ResponseWriter, r *http.Request) {
 	var admins []models.User
 	db := database.GetDB()
 
-	if err := db.Where("role = ?", "admin_restaurant").Find(&admins).Error; err != nil {
+	if err := db.Where("role = ?", "SuperAdmin").Find(&admins).Error; err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -51,7 +51,7 @@ func GetAdmin(w http.ResponseWriter, r *http.Request) {
 	var admin models.User
 	db := database.GetDB()
 
-	if err := db.Where("role = ?", "admin_restaurant").First(&admin, id).Error; err != nil {
+	if err := db.Where("role = ?", "SuperAdmin").First(&admin, id).Error; err != nil {
 		http.Error(w, "Admin non trouvé", http.StatusNotFound)
 		return
 	}
@@ -78,7 +78,7 @@ func CreateAdmin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	admin.Role = "AdminRestaurant" // sécurité : on force le rôle
+	admin.Role = "SuperAdmin" // force management admin
 
 	db := database.GetDB()
 	if err := db.Create(&admin).Error; err != nil {
@@ -111,7 +111,7 @@ func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 	var admin models.User
 	db := database.GetDB()
 
-	if err := db.Where("role = ?", "admin_restaurant").First(&admin, id).Error; err != nil {
+	if err := db.Where("role = ?", "SuperAdmin").First(&admin, id).Error; err != nil {
 		http.Error(w, "Admin non trouvé", http.StatusNotFound)
 		return
 	}
@@ -121,7 +121,7 @@ func UpdateAdmin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	admin.Role = "admin_restaurant" // on s’assure qu’il reste admin
+	admin.Role = "SuperAdmin" // ensure role stays SuperAdmin
 
 	db.Save(&admin)
 	json.NewEncoder(w).Encode(admin)
@@ -144,7 +144,7 @@ func DeleteAdmin(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(params["id"])
 
 	db := database.GetDB()
-	if err := db.Where("role = ?", "admin_restaurant").Delete(&models.User{}, id).Error; err != nil {
+	if err := db.Where("role = ?", "SuperAdmin").Delete(&models.User{}, id).Error; err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
