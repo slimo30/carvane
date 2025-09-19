@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { 
-  CookingPot as ChefHat,
+  CookingPot,
   Robot as Bot,
   ChatCircleText as MessageCircle,
   CheckCircle,
@@ -143,7 +143,7 @@ export function EnhancedWorkerDashboard() {
       id: "start-cooking",
       title: "Commencer à cuisiner",
       description: "Démarrer une nouvelle recette guidée",
-      icon: ChefHat,
+      icon: CookingPot,
       color: "bg-primary",
       href: "/worker/recipes"
     },
@@ -237,7 +237,7 @@ export function EnhancedWorkerDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center">
-                <ChefHat className="h-6 w-6 text-primary-foreground" />
+                <CookingPot className="h-6 w-6 text-primary-foreground" weight="fill" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold">Mon Espace Cuisinier</h1>
@@ -266,7 +266,7 @@ export function EnhancedWorkerDashboard() {
               <span>Vue d'ensemble</span>
             </TabsTrigger>
             <TabsTrigger value="cooking" className="flex items-center space-x-2">
-              <ChefHat className="h-4 w-4" />
+              <CookingPot className="h-4 w-4" weight="fill" />
               <span>Cuisine</span>
             </TabsTrigger>
             <TabsTrigger value="earnings" className="flex items-center space-x-2">
@@ -463,7 +463,7 @@ export function EnhancedWorkerDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <ChefHat className="h-5 w-5 text-primary" />
+                  <CookingPot className="h-5 w-5 text-primary" weight="fill" />
                   <span>Mode Cuisine</span>
                 </CardTitle>
                 <CardDescription>Choisissez votre prochaine recette</CardDescription>

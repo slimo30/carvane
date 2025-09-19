@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { MessageCircle, CheckCircle, ArrowRight, Sparkles, Clock } from "lucide-react"
-import { ChefHat as PhChefHat, Robot, BookOpen as PhBookOpen } from "phosphor-react"
+import { CookingPot, Robot, BookOpen as PhBookOpen } from "phosphor-react"
 import Link from "next/link"
 
 interface OnboardingStep {
@@ -83,7 +83,7 @@ export function AIOnboarding({ onComplete }: AIOnboardingProps) {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <PhChefHat size={32} className="text-primary" />
+              <CookingPot size={32} className="text-primary" weight="fill" />
               <div>
                 <h1 className="text-xl font-bold">Formation Cuisinier</h1>
                 <p className="text-sm text-muted-foreground">Nouveau membre de l'équipe</p>
@@ -223,7 +223,7 @@ export function AIOnboarding({ onComplete }: AIOnboardingProps) {
             <CardContent>
               <Link href="/worker/recipes">
                 <Button className="w-full">
-                  <ChefHat className="h-4 w-4 mr-2" />
+                    <CookingPot className="h-4 w-4 mr-2" weight="fill" />
                   Première recette guidée
                 </Button>
               </Link>
