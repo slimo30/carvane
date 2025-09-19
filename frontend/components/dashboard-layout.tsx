@@ -37,7 +37,6 @@ const navigation = [
   { name: "Restaurants", href: "/restaurants", icon: Store },
   { name: "Transactions", href: "/transactions", icon: CreditCard },
   { name: "User Management", href: "/users", icon: Users },
-  { name: "Security", href: "/security", icon: Shield },
   { name: "Notifications", href: "/notifications", icon: Bell },
   { name: "Settings", href: "/settings", icon: Settings },
 ]

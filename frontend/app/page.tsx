@@ -7,7 +7,7 @@ export default function DashboardPage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-balance">Dashboard Overview</h1>
+          <h1 className="text-3xl font-bold text-balance">Dashboard Overview - Hot Reload Working! 🚀</h1>
           <div className="text-sm text-muted-foreground">Last updated: {new Date().toLocaleDateString()}</div>
         </div>
         <GlobalKPIs />

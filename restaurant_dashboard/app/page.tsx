@@ -11,7 +11,7 @@ export default function HomePage() {
           <div className="flex justify-center mb-6">
             <ChefHat className="h-16 w-16 text-primary" />
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-4">Chef Mode</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Chef Mode - Hot Reload Test! 🔥</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Plateforme de formation culinaire avec guidage vocal et validation des compétences
           </p>
