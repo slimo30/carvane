@@ -195,6 +195,9 @@
 			);
 			mainGroup = 0798DA1D2E7C918200DDD2E2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				070B84DB2E7E2F91008DEBD2 /* XCRemoteSwiftPackageReference "client-sdk-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0798DA272E7C918200DDD2E2 /* Products */;
 			projectDirPath = "";
@@ -550,6 +553,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		070B84DB2E7E2F91008DEBD2 /* XCRemoteSwiftPackageReference "client-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/VapiAI/client-sdk-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 0798DA1E2E7C918200DDD2E2 /* Project object */;
 }

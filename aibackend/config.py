@@ -17,12 +17,25 @@ class Settings(BaseSettings):
     # OpenAI Configuration
     openai_api_key: Optional[str] = None
     
+    # Chargily Configuration
+    chargily_api_key: Optional[str] = None
+    chargily_secret_key: Optional[str] = None
+    chargily_base_url: str = "https://pay.chargily.com/test/v2"
+    chargily_webhook_secret: Optional[str] = None
+    
     # Application Configuration
     app_name: str = "Carvane AI Backend"
     app_version: str = "1.0.0"
     debug: bool = True
     host: str = "0.0.0.0"
     port: int = 8001
+    
+    # CORS Configuration
+    allowed_origins: str = "http://localhost:3000,http://localhost:3001"
+    
+    @property
+    def allowed_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.allowed_origins.split(",")]
     
     class Config:
         env_file = ".env"
