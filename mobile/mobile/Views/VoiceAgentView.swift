@@ -8,7 +8,6 @@
 import SwiftUI
 import AVFoundation
 import Vapi
-
 struct VoiceAgentView: View {
     @ObservedObject var viewModel: VoiceAgentViewModel
     @State private var vapi: Vapi?

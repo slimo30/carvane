@@ -153,10 +153,65 @@ services:
     networks:
       - carvane-network
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"  # Qdrant API
+      - "6334:6334"  # Qdrant Web UI
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__HTTP_PORT: 6333
+      QDRANT__SERVICE__GRPC_PORT: 6334
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qdrant.rule=Host(`qdrant.carvane.localhost`)"
+      - "traefik.http.routers.qdrant.entrypoints=web"
+      - "traefik.http.services.qdrant.loadbalancer.server.port=6333"
+      - "traefik.http.routers.qdrant-ui.rule=Host(`qdrant-ui.carvane.localhost`)"
+      - "traefik.http.routers.qdrant-ui.entrypoints=web"
+      - "traefik.http.services.qdrant-ui.loadbalancer.server.port=6334"
+    depends_on:
+      - traefik
+      - setup-hosts
+    networks:
+      - carvane-network
+
+  aibackend:
+    build:
+      context: ./aibackend
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URL=mongodb://root:example@mongodb:27017
+      - MONGODB_DATABASE=carvane_ai
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin123
+      - QDRANT_URL=http://qdrant:6333
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - CHARGILY_API_KEY=${CHARGILY_API_KEY:-}
+      - CHARGILY_SECRET_KEY=${CHARGILY_SECRET_KEY:-}
+      - CHARGILY_BASE_URL=https://pay.chargily.com/test/v2
+      - CHARGILY_WEBHOOK_SECRET=${CHARGILY_WEBHOOK_SECRET:-}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aibackend.rule=Host(`ai.carvane.localhost`)"
+      - "traefik.http.routers.aibackend.entrypoints=web"
+      - "traefik.http.services.aibackend.loadbalancer.server.port=8001"
+    depends_on:
+      - traefik
+      - mongodb
+      - minio
+      - qdrant
+      - setup-hosts
+    networks:
+      - carvane-network
+
 volumes:
   mongo_data:
   poli_db_data:
   minio_data:
+  qdrant_data:
   frontend_node_modules:
   frontend_next:
   restaurant_next:
