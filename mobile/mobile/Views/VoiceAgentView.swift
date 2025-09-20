@@ -7,11 +7,16 @@
 
 import SwiftUI
 import AVFoundation
+import Vapi
 
 struct VoiceAgentView: View {
     @ObservedObject var viewModel: VoiceAgentViewModel
+    @State private var vapi: Vapi?
     @State private var userInput = ""
     @State private var isListening = false
+    @State private var isCallActive = false
+    @State private var isMuted = false
+    @State private var callStatus = "Ready to start call"
     
     var body: some View {
         NavigationView {
@@ -30,6 +35,7 @@ struct VoiceAgentView: View {
         }
         .onAppear {
             viewModel.startConversation()
+            initializeVapi()
         }
     }
     
@@ -68,6 +74,12 @@ struct VoiceAgentView: View {
             
             // Quick actions
             quickActionsView
+            
+            // Call status
+            Text(callStatus)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
         }
     }
     
@@ -123,25 +135,42 @@ struct VoiceAgentView: View {
             // Voice input button
             HStack {
                 Button(action: {
-                    if isListening {
-                        viewModel.stopListening()
+                    if isCallActive {
+                        stopCall()
                     } else {
-                        viewModel.startListening()
+                        Task {
+                            await startCall()
+                        }
                     }
-                    isListening.toggle()
                 }) {
                     HStack {
-                        Image(systemName: isListening ? "stop.circle.fill" : "mic.circle.fill")
+                        Image(systemName: isCallActive ? "phone.down.fill" : "phone.fill")
                             .font(.title2)
-                        Text(isListening ? "Arrêter" : "Parler")
+                        Text(isCallActive ? "End Call" : "Start Call")
                             .font(.headline)
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(isListening ? Color.red : Color.orange)
+                    .background(isCallActive ? Color.red : Color.orange)
                     .cornerRadius(25)
                 }
                 .disabled(!viewModel.isActive)
+                
+                // Mute button (only show when call is active)
+                if isCallActive {
+                    Button(action: {
+                        Task {
+                            await toggleMute()
+                        }
+                    }) {
+                        Image(systemName: isMuted ? "mic.slash.fill" : "mic.fill")
+                            .font(.title2)
+                            .foregroundColor(isMuted ? .red : .blue)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(25)
+                    }
+                }
                 
                 Spacer()
                 
@@ -171,6 +200,97 @@ struct VoiceAgentView: View {
             .padding()
         }
         .background(Color(.systemBackground))
+    }
+    
+    // MARK: - Vapi Methods
+    
+    private func initializeVapi() {
+        // Initialize Vapi with configuration
+        // Option 1: Try with API key directly in configuration
+        do {
+            let configJSON = """
+            {
+                "apiKey": "a35edcb1-d7a1-4c3e-bf74-e1d20245a47c"
+            }
+            """
+            
+            let configData = configJSON.data(using: .utf8)!
+            let decoder = JSONDecoder()
+            let configuration = try decoder.decode(Vapi.Configuration.self, from: configData)
+            vapi = Vapi(configuration: configuration)
+            
+            callStatus = "Vapi initialized successfully"
+        } catch {
+            print("Failed to initialize Vapi: \(error)")
+            callStatus = "Failed to initialize Vapi: \(error.localizedDescription)"
+            
+            // Option 2: Try alternative initialization if available
+            // Sometimes SDKs have multiple initializers
+            // vapi = Vapi() // uncomment this line if the above fails
+        }
+    }
+    
+    private func startCall() async {
+        guard let vapi = vapi else {
+            await MainActor.run {
+                self.callStatus = "Vapi not initialized"
+            }
+            return
+        }
+        
+        do {
+            await MainActor.run {
+                self.callStatus = "Starting call..."
+            }
+            
+            // Replace "your-assistant-id" with your actual assistant ID from Vapi dashboard
+            try await vapi.start(assistantId: "your-assistant-id")
+            
+            await MainActor.run {
+                self.isCallActive = true
+                self.callStatus = "Call started successfully"
+            }
+            
+        } catch {
+            await MainActor.run {
+                self.callStatus = "Failed to start call: \(error.localizedDescription)"
+                self.isCallActive = false
+            }
+        }
+    }
+    
+    private func stopCall() {
+        guard let vapi = vapi else { return }
+        
+        callStatus = "Ending call..."
+        
+        Task {
+            await vapi.stop()
+            
+            await MainActor.run {
+                self.isCallActive = false
+                self.callStatus = "Call ended"
+                self.isMuted = false
+            }
+        }
+    }
+    
+    private func toggleMute() async {
+        guard let vapi = vapi, isCallActive else { return }
+        
+        let newMuteState = !isMuted
+        
+        do {
+            try await vapi.setMuted(newMuteState)
+            await MainActor.run {
+                self.isMuted = newMuteState
+                self.callStatus = newMuteState ? "Muted" : "Unmuted"
+            }
+        } catch {
+            await MainActor.run {
+                self.callStatus = "Failed to toggle mute: \(error.localizedDescription)"
+            }
+        }
     }
 }
 
